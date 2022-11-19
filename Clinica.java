@@ -6,6 +6,7 @@ public class Clinica {
     private int cnpj;
     private String endereco;
     private ArrayList<Especialidade> especialidades = new ArrayList<Especialidade>();
+    private Agenda agenda = new Agenda();
 
     public Clinica(String nome, int cnpj, String endereco, Especialidade... especialidades) {
         this.nome = nome;
@@ -44,5 +45,23 @@ public class Clinica {
 
     public ArrayList<Especialidade> getEspecialidades() {
         return especialidades;
+    }
+
+    public Agenda getAgenda() {
+        return agenda;
+    }
+
+    public void setAgenda(Agenda agenda) {
+        this.agenda = agenda;
+    }
+
+    @Override
+    public String toString() {
+        return "Clinica{" +
+                "nome='" + nome + '\'' +
+                ", cnpj=" + cnpj +
+                ", endereco='" + endereco + '\'' +
+                ", especialidades=" + especialidades +
+                '}';
     }
 }
