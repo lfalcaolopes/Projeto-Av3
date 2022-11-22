@@ -3,9 +3,9 @@ import java.util.Arrays;
 
 public class Principal {
     public static void main(String[] args){
-        ArrayList<Clinica> clinicas = setUpClinica();
+        ArrayList<Especialidade> especialidades = setUpEspecialidades();
 
-        Dia dia = clinicas.get(1).getAgenda().getSemana().get(1);
+        Dia dia = especialidades.get(1).getClinicas().get(1).getAgenda().get(1);
 
         dia.marcarConsulta(16);
         int[] horarios = dia.getHorarios();
@@ -26,17 +26,34 @@ public class Principal {
         }
     }
 
-    public static ArrayList<Clinica> setUpClinica(){
-        Especialidade dermatologia = new Especialidade("Dermatologia");
-        Especialidade pediatria = new Especialidade("Pediatria");
-        Especialidade oftalmologia = new Especialidade("Oftalmologia");
-        Especialidade cardiologia = new Especialidade("Cardiologia");
-        Especialidade endocrinologia = new Especialidade("Endocrinologia");
 
-        Clinica santaMarta = new Clinica("Santa Marta", 1111111, "Av. josé campos", dermatologia, pediatria, cardiologia);
-        Clinica santoAntonio = new Clinica("Santo Antonio", 2222222, "Av. larissa cavalcanti", dermatologia, oftalmologia, cardiologia);
-        Clinica santaBarbara = new Clinica("Santa Barbara", 3333333, "Av. luis eduardo", dermatologia, pediatria, oftalmologia, cardiologia, endocrinologia);
+    public static ArrayList<Especialidade> setUpEspecialidades(){
+        Clinica santaMarta = new Clinica("Santa Marta", 1111111, "Av. josé campos");
+        Clinica santoAntonio = new Clinica("Santo Antonio", 2222222, "Av. larissa cavalcanti");
+        Clinica santaBarbara = new Clinica("Santa Barbara", 3333333, "Av. luis eduardo");
 
-        return new ArrayList<Clinica>(Arrays.asList(santaMarta, santoAntonio, santaBarbara));
+        Especialidade dermatologia = new Especialidade("Dermatologia", santaMarta, santoAntonio, santaBarbara);
+
+        santaMarta = new Clinica("Santa Marta", 1111111, "Av. josé campos");
+        santoAntonio = new Clinica("Santo Antonio", 2222222, "Av. larissa cavalcanti");
+
+        Especialidade pediatria = new Especialidade("Pediatria", santaMarta, santoAntonio);
+
+        santaMarta = new Clinica("Santa Marta", 1111111, "Av. josé campos");
+
+        Especialidade oftalmologia = new Especialidade("Oftalmologia", santaMarta);
+
+        santaMarta = new Clinica("Santa Marta", 1111111, "Av. josé campos");
+        santoAntonio = new Clinica("Santo Antonio", 2222222, "Av. larissa cavalcanti");
+        santaBarbara = new Clinica("Santa Barbara", 3333333, "Av. luis eduardo");
+
+        Especialidade cardiologia = new Especialidade("Cardiologia", santaMarta, santoAntonio, santaBarbara);
+
+        santaMarta = new Clinica("Santa Marta", 1111111, "Av. josé campos");
+        santaBarbara = new Clinica("Santa Barbara", 3333333, "Av. luis eduardo");
+
+        Especialidade endocrinologia = new Especialidade("Endocrinologia", santaMarta, santaBarbara);
+
+        return new ArrayList<>(Arrays.asList(dermatologia, pediatria, oftalmologia, cardiologia, endocrinologia));
     }
 }

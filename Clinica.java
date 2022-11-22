@@ -5,15 +5,14 @@ public class Clinica {
     private String nome;
     private int cnpj;
     private String endereco;
-    private ArrayList<Especialidade> especialidades = new ArrayList<Especialidade>();
-    private Agenda agenda = new Agenda();
+    private ArrayList<Dia> agenda = new ArrayList<Dia>();
 
-    public Clinica(String nome, int cnpj, String endereco, Especialidade... especialidades) {
+    public Clinica(String nome, int cnpj, String endereco) {
         this.nome = nome;
         this.cnpj = cnpj;
         this.endereco = endereco;
-        this.especialidades.addAll(Arrays.asList(especialidades));
-    }
+        setAgenda();
+     }
 
     public String getNome() {
         return nome;
@@ -39,20 +38,18 @@ public class Clinica {
         this.endereco = endereco;
     }
 
-    public void addEspecialidade(Especialidade... especialidades) {
-        this.especialidades.addAll(Arrays.asList(especialidades));
-    }
-
-    public ArrayList<Especialidade> getEspecialidades() {
-        return especialidades;
-    }
-
-    public Agenda getAgenda() {
+    public ArrayList<Dia> getAgenda() {
         return agenda;
     }
 
-    public void setAgenda(Agenda agenda) {
-        this.agenda = agenda;
+    public void setAgenda() {
+        Dia segunda = new Dia();
+        Dia terca = new Dia();
+        Dia quarta = new Dia();
+        Dia quinta = new Dia();
+        Dia sexta = new Dia();
+
+        this.agenda.addAll(Arrays.asList(segunda, terca, quarta, quinta, sexta));
     }
 
     @Override
@@ -61,7 +58,7 @@ public class Clinica {
                 "nome='" + nome + '\'' +
                 ", cnpj=" + cnpj +
                 ", endereco='" + endereco + '\'' +
-                ", especialidades=" + especialidades +
+                ", agenda=" + agenda +
                 '}';
     }
 }
