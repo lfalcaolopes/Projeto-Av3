@@ -2,8 +2,8 @@ public class ConsultaPlano extends Consulta{
     private String nome;
     private int numPlano;
 
-    public ConsultaPlano(String dataConsulta, int horaConsulta, boolean status, String nome, int numPlano) {
-        super(dataConsulta, horaConsulta, status);
+    public ConsultaPlano(int horaConsulta, Usuario paciente, Clinica clinica, Especialidade especialidade, String nome, int numPlano) {
+        super(horaConsulta, paciente, clinica, especialidade);
         this.nome = nome;
         this.numPlano = numPlano;
     }

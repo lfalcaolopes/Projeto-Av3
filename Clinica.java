@@ -43,11 +43,11 @@ public class Clinica {
     }
 
     public void setAgenda() {
-        Dia segunda = new Dia();
-        Dia terca = new Dia();
-        Dia quarta = new Dia();
-        Dia quinta = new Dia();
-        Dia sexta = new Dia();
+        Dia segunda = new Dia("Segunda");
+        Dia terca = new Dia("Terça");
+        Dia quarta = new Dia("Quarta");
+        Dia quinta = new Dia("Quinta");
+        Dia sexta = new Dia("Sexta");
 
         this.agenda.addAll(Arrays.asList(segunda, terca, quarta, quinta, sexta));
     }

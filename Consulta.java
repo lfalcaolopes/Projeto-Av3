@@ -1,21 +1,17 @@
 public abstract class Consulta {
-    private String dataConsulta;
     private int horaConsulta;
-    private boolean status;
+    private Usuario paciente;
+    private Clinica clinica;
+    private Especialidade especialidade;
 
-    public Consulta(String dataConsulta, int horaConsulta, boolean status) {
-        this.dataConsulta = dataConsulta;
+
+    public Consulta(int horaConsulta, Usuario paciente, Clinica clinica, Especialidade especialidade) {
         this.horaConsulta = horaConsulta;
-        this.status = status;
+        this.paciente = paciente;
+        this.clinica = clinica;
+        this.especialidade = especialidade;
     }
 
-    public String getDataConsulta() {
-        return dataConsulta;
-    }
-
-    public void setDataConsulta(String dataConsulta) {
-        this.dataConsulta = dataConsulta;
-    }
 
     public int getHoraConsulta() {
         return horaConsulta;
@@ -23,13 +19,5 @@ public abstract class Consulta {
 
     public void setHoraConsulta(int horaConsulta) {
         this.horaConsulta = horaConsulta;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
     }
 }

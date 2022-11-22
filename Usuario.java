@@ -1,11 +1,11 @@
 public class Usuario {
     private String nome;
-    private int cpf;
+    private String cpf;
     private String dataNasc;
-    private char sexo;
+    private String sexo;
     private String telefone;
 
-    public Usuario(String nome, int cpf, String dataNasc, char sexo, String telefone) {
+    public Usuario(String nome, String cpf, String dataNasc, String sexo, String telefone) {
         this.nome = nome;
         this.cpf = cpf;
         this.dataNasc = dataNasc;
@@ -21,11 +21,11 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 
@@ -37,11 +37,11 @@ public class Usuario {
         this.dataNasc = dataNasc;
     }
 
-    public char getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(char sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 
