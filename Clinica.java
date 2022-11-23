@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Clinica {
     private String nome;
@@ -13,6 +14,20 @@ public class Clinica {
         this.endereco = endereco;
         setAgenda();
      }
+
+    public Dia selecionarDia(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println();
+
+        System.out.println("Qual o melhor dia para a consulta?");
+
+        for (int i = 0; i < this.agenda.size(); i++){
+            System.out.print((i + 1) + ". " + this.agenda.get(i).getNome() + "   ");
+        }
+        System.out.println();
+
+        return this.agenda.get(sc.nextInt() - 1);
+    }
 
     public String getNome() {
         return nome;

@@ -23,4 +23,9 @@ public class ConsultaPlano extends Consulta{
     public void setNumPlano(int numPlano) {
         this.numPlano = numPlano;
     }
+
+    @Override
+    public void informacoes() {
+        System.out.printf("%-10s%-15.12s%-17s%-20s%-20s%n", super.getHoraConsulta() + "h", super.getPaciente().getNome(), super.getClinica().getNome(), super.getEspecialidade().getNome(), "Plano");
+    }
 }

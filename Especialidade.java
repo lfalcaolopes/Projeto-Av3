@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Especialidade {
     private String nome;
@@ -9,6 +10,20 @@ public class Especialidade {
     public Especialidade(String nome, Clinica... clinicas) {
         this.nome = nome;
         addClinicas(clinicas);
+    }
+
+    public Clinica selecionarClinica(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println();
+
+        System.out.println("Qual clínica deseja marcar consulta?");
+
+        for (int i = 0; i < this.clinicas.size(); i++){
+            System.out.print((i + 1) + ". " + this.clinicas.get(i).getNome() + "   ");
+        }
+        System.out.println();
+
+        return this.clinicas.get(sc.nextInt() - 1);
     }
 
     public String getNome() {
