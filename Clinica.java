@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class Clinica {
     private String nome;
@@ -28,7 +26,6 @@ public class Clinica {
 
         return this.agenda.get(sc.nextInt() - 1);
     }
-
     public String getNome() {
         return nome;
     }

@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 public class Usuario {
     private String nome;
@@ -15,8 +18,7 @@ public class Usuario {
         this.telefone = telefone;
     }
 
-    public  void consultasMarcadas(ArrayList<Especialidade> especialidades){
-        ArrayList<Consulta> consultas = new ArrayList<>();
+    public void consultasMarcadas(ArrayList<Especialidade> especialidades){
 
         System.out.println("------------------------------------------------------------------------------------");
         System.out.printf("%-10s%-10s%-15s%-17s%-20s%-20s%n", "Dia", "Horario", "Paciente","Clinica","Especialidade","Tipo");
@@ -33,6 +35,52 @@ public class Usuario {
             }
         }
         System.out.println("------------------------------------------------------------------------------------");
+        System.out.println();
+    }
+
+    public void desmarcarConsulta(ArrayList<Especialidade> especialidades){
+        Map<Consulta, ArrayList<Consulta>> consultaMap = new HashMap<>();
+        Scanner sc = new Scanner(System.in);
+
+        int contador = 0;
+
+        System.out.println("Digite o numero da consulta que deseja cancelar");
+        System.out.println();
+
+        System.out.println("---------------------------------------------------------------------------------------");
+        System.out.printf("   %-10s%-10s%-15s%-17s%-20s%-20s%n", "Dia", "Horario", "Paciente","Clinica","Especialidade","Tipo");
+        System.out.println();
+        for (Especialidade especialidade : especialidades){
+            for (Clinica clinica : especialidade.getClinicas()){
+                for (Dia dia : clinica.getAgenda()){
+                    for (Consulta consulta : dia.getConsultasMarcadas()){
+                        if (consulta.getPaciente().getNome().equals(this.nome)){
+                            System.out.print(++contador + ". ");
+                            consulta.informacoes();
+
+                            consultaMap.put(consulta, dia.getConsultasMarcadas());
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println("---------------------------------------------------------------------------------------");
+        System.out.println();
+        System.out.print("Consulta: ");
+        int consultaNum = sc.nextInt() - 1;
+
+        contador = 0;
+
+        for (var entry : consultaMap.entrySet()) {
+            if (contador == consultaNum){
+                entry.getValue().remove(entry.getKey());
+            }
+            contador++;
+        }
+
+        System.out.println();
+        System.out.println("\t\tConsulta desmarcada com Sucesso");
+        System.out.println();
         System.out.println();
     }
 

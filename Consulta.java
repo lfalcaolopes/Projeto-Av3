@@ -1,12 +1,12 @@
 public abstract class Consulta {
-    private String dia;
+    private Dia dia;
     private int horaConsulta;
     private Usuario paciente;
     private Clinica clinica;
     private Especialidade especialidade;
 
 
-    public Consulta(String dia, int horaConsulta, Usuario paciente, Clinica clinica, Especialidade especialidade) {
+    public Consulta(Dia dia, int horaConsulta, Usuario paciente, Clinica clinica, Especialidade especialidade) {
         this.dia = dia;
         this.horaConsulta = horaConsulta;
         this.paciente = paciente;
@@ -14,11 +14,11 @@ public abstract class Consulta {
         this.especialidade = especialidade;
     }
 
-    public String getDia() {
+    public Dia getDia() {
         return dia;
     }
 
-    public void setDia(String dia) {
+    public void setDia(Dia dia) {
         this.dia = dia;
     }
 
@@ -53,6 +53,7 @@ public abstract class Consulta {
     public void setEspecialidade(Especialidade especialidade) {
         this.especialidade = especialidade;
     }
+
 
     public abstract void informacoes();
 }

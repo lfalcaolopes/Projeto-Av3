@@ -2,7 +2,7 @@ public class ConsultaPlano extends Consulta{
     private String nome;
     private int numPlano;
 
-    public ConsultaPlano(String dia, int horaConsulta, Usuario paciente, Clinica clinica, Especialidade especialidade, String nome, int numPlano) {
+    public ConsultaPlano(Dia dia, int horaConsulta, Usuario paciente, Clinica clinica, Especialidade especialidade, String nome, int numPlano) {
         super(dia, horaConsulta, paciente, clinica, especialidade);
         this.nome = nome;
         this.numPlano = numPlano;
@@ -26,6 +26,6 @@ public class ConsultaPlano extends Consulta{
 
     @Override
     public void informacoes() {
-        System.out.printf("%-10s%-10s%-15.12s%-17s%-20s%-20s%n", super.getDia(), super.getHoraConsulta() + "h", super.getPaciente().getNome(), super.getClinica().getNome(), super.getEspecialidade().getNome(), "Plano");
+        System.out.printf("%-10s%-10s%-15.12s%-17s%-20s%-20s%n", super.getDia().getNome(), super.getHoraConsulta() + "h", super.getPaciente().getNome(), super.getClinica().getNome(), super.getEspecialidade().getNome(), "Plano");
     }
 }

@@ -32,6 +32,7 @@ public class Principal {
                             System.out.println("1. Marcar Consulta \t 2. Visualizar consultas \t 3. Cancelar consulta \t 0. Logout");
                             int opcoesUsuario = sc.nextInt();
                             System.out.println();
+                            System.out.println();
 
                             if (opcoesUsuario == 1){
                                 Especialidade especialidadeEscolhida = selecionarEspecialidade(especialidades);
@@ -40,16 +41,17 @@ public class Principal {
 
                                 Dia diaEscolhido = clinicaEscolhida.selecionarDia();
 
-                                diaEscolhido.selecionarHorario(usuarioAtual, clinicaEscolhida, especialidadeEscolhida);
+                                selecionarHorario(diaEscolhido, usuarioAtual, clinicaEscolhida, especialidadeEscolhida);
                             }
-                            else if (opcoesUsuario == 2){
+                            else if (opcoesUsuario == 2)
                                 usuarioAtual.consultasMarcadas(especialidades);
 
+                            else if (opcoesUsuario == 3)
+                                usuarioAtual.desmarcarConsulta(especialidades);
 
-                            }
-                            else if (opcoesUsuario == 0){
+                            else if (opcoesUsuario == 0)
                                 estaLogado = false;
-                            }
+
                         }
                     }
                     else{
@@ -62,15 +64,15 @@ public class Principal {
             else if (usuarioTipo == 2){
                 Map<String, ArrayList<Consulta>> todasConsultas = consultasClinicas(especialidades);
 
-                System.out.println("------------------------------------------------------------------------------------");
-                System.out.printf("%-10s%-10s%-15s%-17s%-20s%-20s%n", "Dia", "Horario", "Paciente","Clinica","Especialidade","Tipo");
+                System.out.println("---------------------------------------------------------------------------------------");
+                System.out.printf("   %-10s%-10s%-15s%-17s%-20s%-20s%n", "Dia", "Horario", "Paciente","Clinica","Especialidade","Tipo");
                 for (ArrayList<Consulta> consultas : todasConsultas.values()) {
                     System.out.println();
                     for (Consulta consulta : consultas) {
                         consulta.informacoes();
                     }
                 }
-                System.out.println("------------------------------------------------------------------------------------");
+                System.out.println("---------------------------------------------------------------------------------------");
                 System.out.println();
             }
             else if (usuarioTipo == 0){
@@ -97,7 +99,7 @@ public class Principal {
         String fone = sc.nextLine();
 
         System.out.println();
-        System.out.println("Usuário cadastrado com sucesso. Faça o login");
+        System.out.println("\t\tUsuário cadastrado com sucesso. Faça o login");
         System.out.println();
 
         return new Usuario(nome, cpf, nasc, sexo, fone);
@@ -112,7 +114,7 @@ public class Principal {
         for (Usuario usuario : usuarios){
             if (cpf.equals(usuario.getCpf())){
                 System.out.println();
-                System.out.println("Bem vindo " + usuario.getNome());
+                System.out.println("\t\tBem vindo " + usuario.getNome());
                 System.out.println();
                 return usuario;
             }
@@ -131,6 +133,47 @@ public class Principal {
         System.out.println();
 
         return especialidades.get(sc.nextInt() - 1);
+    }
+    public static void selecionarHorario(Dia dia, Usuario paciente, Clinica clinica, Especialidade especialidade){
+        Scanner sc = new Scanner(System.in);
+        int[] horarios = dia.getHorarios();
+
+        System.out.println();
+
+        System.out.println("Qual o melhor horário para a consulta?");
+
+        for (int i = 0; i < horarios.length; i++){
+            if (horarios[i] == 0){
+                System.out.print((i + 8) + "h   ");
+            }
+        }
+        System.out.println();
+        int hora = sc.nextInt();
+        System.out.println();
+
+        System.out.println("1. Particular \t 2. Plano de Saúde");
+        int tipo = sc.nextInt();
+        sc.nextLine();
+        System.out.println();
+
+        Consulta consulta = null;
+
+        if (tipo == 1){
+            consulta = new ConsultaParticular(dia, hora, paciente, clinica, especialidade, 120);
+        }
+        else if (tipo == 2){
+            System.out.print("Nome do plano: ");
+            String nomePlano = sc.nextLine();
+            System.out.print("Numero do plano: ");
+            int numPlano = sc.nextInt();
+            System.out.println();
+
+            consulta = new ConsultaPlano(dia, hora, paciente, clinica, especialidade, nomePlano, numPlano);
+        }
+
+        dia.marcarConsulta(hora, consulta);
+        System.out.println("\t\tConsulta marcada com sucesso");
+        System.out.println();
     }
     public static Map<String ,ArrayList<Consulta>> consultasClinicas(ArrayList<Especialidade> especialidades){
         Map<String ,ArrayList<Consulta>> todasConsultas = new HashMap<>();
