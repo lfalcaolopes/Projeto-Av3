@@ -36,7 +36,7 @@ public class Dia {
         Consulta consulta = null;
 
         if (tipo == 1){
-            consulta = new ConsultaParticular(hora, paciente, clinica, especialidade, 120);
+            consulta = new ConsultaParticular(this.nome, hora, paciente, clinica, especialidade, 120);
         }
         else if (tipo == 2){
             System.out.print("Nome do plano: ");
@@ -45,7 +45,7 @@ public class Dia {
             int numPlano = sc.nextInt();
             System.out.println();
 
-            consulta = new ConsultaPlano(hora, paciente, clinica, especialidade, nomePlano, numPlano);
+            consulta = new ConsultaPlano(this.nome, hora, paciente, clinica, especialidade, nomePlano, numPlano);
         }
 
         this.marcarConsulta(hora, consulta);

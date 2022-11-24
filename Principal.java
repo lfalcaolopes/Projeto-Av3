@@ -26,22 +26,30 @@ public class Principal {
                     Usuario usuarioAtual = verificarUsuario(usuarios);
 
                     if(usuarioAtual != null){
-                        boolean estaMarcando = true;
+                        boolean estaLogado = true;
 
-                        while(estaMarcando){
-                            Especialidade especialidadeEscolhida = selecionarEspecialidade(especialidades);
-
-                            Clinica clinicaEscolhida = especialidadeEscolhida.selecionarClinica();
-
-                            Dia diaEscolhido = clinicaEscolhida.selecionarDia();
-
-                            diaEscolhido.selecionarHorario(usuarioAtual, clinicaEscolhida, especialidadeEscolhida);
-
-                            System.out.println("1. Marcar outra consulta \t 2. Logout");
-                            if (sc.nextInt() == 2){
-                                estaMarcando = false;
-                            }
+                        while(estaLogado){
+                            System.out.println("1. Marcar Consulta \t 2. Visualizar consultas \t 3. Cancelar consulta \t 0. Logout");
+                            int opcoesUsuario = sc.nextInt();
                             System.out.println();
+
+                            if (opcoesUsuario == 1){
+                                Especialidade especialidadeEscolhida = selecionarEspecialidade(especialidades);
+
+                                Clinica clinicaEscolhida = especialidadeEscolhida.selecionarClinica();
+
+                                Dia diaEscolhido = clinicaEscolhida.selecionarDia();
+
+                                diaEscolhido.selecionarHorario(usuarioAtual, clinicaEscolhida, especialidadeEscolhida);
+                            }
+                            else if (opcoesUsuario == 2){
+                                usuarioAtual.consultasMarcadas(especialidades);
+
+
+                            }
+                            else if (opcoesUsuario == 0){
+                                estaLogado = false;
+                            }
                         }
                     }
                     else{
@@ -54,13 +62,15 @@ public class Principal {
             else if (usuarioTipo == 2){
                 Map<String, ArrayList<Consulta>> todasConsultas = consultasClinicas(especialidades);
 
-                System.out.printf("%-10s%-15s%-17s%-20s%-20s%n", "Horario", "Paciente","Clinica","Especialidade","Tipo");
+                System.out.println("------------------------------------------------------------------------------------");
+                System.out.printf("%-10s%-10s%-15s%-17s%-20s%-20s%n", "Dia", "Horario", "Paciente","Clinica","Especialidade","Tipo");
                 for (ArrayList<Consulta> consultas : todasConsultas.values()) {
                     System.out.println();
                     for (Consulta consulta : consultas) {
                         consulta.informacoes();
                     }
                 }
+                System.out.println("------------------------------------------------------------------------------------");
                 System.out.println();
             }
             else if (usuarioTipo == 0){
@@ -102,7 +112,7 @@ public class Principal {
         for (Usuario usuario : usuarios){
             if (cpf.equals(usuario.getCpf())){
                 System.out.println();
-                System.out.println("Login feito com sucesso. Bem vindo " + usuario.getNome());
+                System.out.println("Bem vindo " + usuario.getNome());
                 System.out.println();
                 return usuario;
             }
@@ -123,7 +133,6 @@ public class Principal {
         return especialidades.get(sc.nextInt() - 1);
     }
     public static Map<String ,ArrayList<Consulta>> consultasClinicas(ArrayList<Especialidade> especialidades){
-
         Map<String ,ArrayList<Consulta>> todasConsultas = new HashMap<>();
 
         ArrayList<Consulta> consultas = new ArrayList<>();

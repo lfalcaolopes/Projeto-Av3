@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Usuario {
     private String nome;
     private String cpf;
@@ -11,6 +13,27 @@ public class Usuario {
         this.dataNasc = dataNasc;
         this.sexo = sexo;
         this.telefone = telefone;
+    }
+
+    public  void consultasMarcadas(ArrayList<Especialidade> especialidades){
+        ArrayList<Consulta> consultas = new ArrayList<>();
+
+        System.out.println("------------------------------------------------------------------------------------");
+        System.out.printf("%-10s%-10s%-15s%-17s%-20s%-20s%n", "Dia", "Horario", "Paciente","Clinica","Especialidade","Tipo");
+        System.out.println();
+        for (Especialidade especialidade : especialidades){
+            for (Clinica clinica : especialidade.getClinicas()){
+                for (Dia dia : clinica.getAgenda()){
+                    for (Consulta consulta : dia.getConsultasMarcadas()){
+                        if (consulta.getPaciente().getNome().equals(this.nome)){
+                            consulta.informacoes();
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println("------------------------------------------------------------------------------------");
+        System.out.println();
     }
 
 
