@@ -2,8 +2,8 @@ import java.util.*;
 
 public class Principal {
     public static void main(String[] args){
-        ArrayList<Especialidade> especialidades = setUpEspecialidades();
-        ArrayList<Usuario> usuarios = new ArrayList<>();
+        ArrayList<Especialidade> especialidades = setUpEspecialidades(); // Configurar especialidades quais clinicas atendem
+        ArrayList<Usuario> usuarios = new ArrayList<>(); // Registro de todos os usuarios
         Scanner sc = new Scanner(System.in);
 
         boolean estaRodando = true;
@@ -14,42 +14,42 @@ public class Principal {
             int usuarioTipo = sc.nextInt();
             System.out.println();
 
-            if (usuarioTipo == 1){
+            if (usuarioTipo == 1){ // Rota do paciente
                 System.out.println("1. Primeiro acesso \t 2. Login");
                 int login = sc.nextInt();
 
-                if (login == 1){
-                    usuarios.add(cadastrarUsuario());
+                if (login == 1){ // Cadastrar usuário
+                    usuarios.add(cadastrarUsuario()); // Adicionar usuário no registro
 
                 }
-                else if (login == 2){
-                    Usuario usuarioAtual = verificarUsuario(usuarios);
+                else if (login == 2){ // Login
+                    Usuario usuarioAtual = verificarUsuario(usuarios); // Confere se usuário está cadastrado pelo cpf
 
                     if(usuarioAtual != null){
                         boolean estaLogado = true;
 
-                        while(estaLogado){
+                        while(estaLogado){ // Loop para se manter logado
                             System.out.println("1. Marcar Consulta \t 2. Visualizar consultas \t 3. Cancelar consulta \t 0. Logout");
                             int opcoesUsuario = sc.nextInt();
                             System.out.println();
                             System.out.println();
 
-                            if (opcoesUsuario == 1){
-                                Especialidade especialidadeEscolhida = selecionarEspecialidade(especialidades);
+                            if (opcoesUsuario == 1){ // Marcar consulta
+                                Especialidade especialidadeEscolhida = selecionarEspecialidade(especialidades); // Salva especialidade desejada
 
-                                Clinica clinicaEscolhida = especialidadeEscolhida.selecionarClinica();
+                                Clinica clinicaEscolhida = especialidadeEscolhida.selecionarClinica(); // Salva clinica desejada
 
-                                Dia diaEscolhido = clinicaEscolhida.selecionarDia();
+                                Dia diaEscolhido = clinicaEscolhida.selecionarDia(); // Salva dia desejado
 
-                                selecionarHorario(diaEscolhido, usuarioAtual, clinicaEscolhida, especialidadeEscolhida);
+                                selecionarHorario(diaEscolhido, usuarioAtual, clinicaEscolhida, especialidadeEscolhida); // Marca consulta no horario selecionado
                             }
-                            else if (opcoesUsuario == 2)
+                            else if (opcoesUsuario == 2) // Visualizar consultas
                                 usuarioAtual.consultasMarcadas(especialidades);
 
-                            else if (opcoesUsuario == 3)
+                            else if (opcoesUsuario == 3) // Cancelar consulta
                                 usuarioAtual.desmarcarConsulta(especialidades);
 
-                            else if (opcoesUsuario == 0)
+                            else if (opcoesUsuario == 0) // Logout
                                 estaLogado = false;
 
                         }
@@ -61,21 +61,21 @@ public class Principal {
                     }
                 }
             }
-            else if (usuarioTipo == 2){
-                Map<String, ArrayList<Consulta>> todasConsultas = consultasClinicas(especialidades);
+            else if (usuarioTipo == 2){ // Mostrar consultas de todas as clinicas
+                Map<String, ArrayList<Consulta>> todasConsultas = consultasClinicas(especialidades); // Dicionario com nome da clinica e suas consultas do dia
 
                 System.out.println("---------------------------------------------------------------------------------------");
                 System.out.printf("   %-10s%-10s%-15s%-17s%-20s%-20s%n", "Dia", "Horario", "Paciente","Clinica","Especialidade","Tipo");
-                for (ArrayList<Consulta> consultas : todasConsultas.values()) {
+                for (ArrayList<Consulta> consultas : todasConsultas.values()) { // Loop para acessar consultas do dia
                     System.out.println();
-                    for (Consulta consulta : consultas) {
-                        consulta.informacoes();
+                    for (Consulta consulta : consultas) { // Loop para acessar cada consulta
+                        consulta.informacoes(); // Print informações da consulta
                     }
                 }
                 System.out.println("---------------------------------------------------------------------------------------");
                 System.out.println();
             }
-            else if (usuarioTipo == 0){
+            else if (usuarioTipo == 0){ // Sair do programa
                 estaRodando = false;
             }
         }
