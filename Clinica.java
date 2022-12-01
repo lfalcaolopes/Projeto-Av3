@@ -19,12 +19,23 @@ public class Clinica {
 
         System.out.println("Qual o melhor dia para a consulta?");
 
+        // Imprime todos os dias disponiveis
         for (int i = 0; i < this.agenda.size(); i++){
             System.out.print((i + 1) + ". " + this.agenda.get(i).getNome() + "   ");
         }
         System.out.println();
 
+        // Retorna o dia escolhido
         return this.agenda.get(sc.nextInt() - 1);
+    }
+    public void setAgenda() { // Cria os dias da semana com os horarios livres para atendimento
+        Dia segunda = new Dia("Segunda");
+        Dia terca = new Dia("Terça");
+        Dia quarta = new Dia("Quarta");
+        Dia quinta = new Dia("Quinta");
+        Dia sexta = new Dia("Sexta");
+
+        this.agenda.addAll(Arrays.asList(segunda, terca, quarta, quinta, sexta));
     }
     public String getNome() {
         return nome;
@@ -54,23 +65,5 @@ public class Clinica {
         return agenda;
     }
 
-    public void setAgenda() {
-        Dia segunda = new Dia("Segunda");
-        Dia terca = new Dia("Terça");
-        Dia quarta = new Dia("Quarta");
-        Dia quinta = new Dia("Quinta");
-        Dia sexta = new Dia("Sexta");
 
-        this.agenda.addAll(Arrays.asList(segunda, terca, quarta, quinta, sexta));
-    }
-
-    @Override
-    public String toString() {
-        return "Clinica{" +
-                "nome='" + nome + '\'' +
-                ", cnpj=" + cnpj +
-                ", endereco='" + endereco + '\'' +
-                ", agenda=" + agenda +
-                '}';
-    }
 }

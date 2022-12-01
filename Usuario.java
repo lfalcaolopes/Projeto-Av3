@@ -23,6 +23,8 @@ public class Usuario {
         System.out.println("------------------------------------------------------------------------------------");
         System.out.printf("%-10s%-10s%-15s%-17s%-20s%-20s%n", "Dia", "Horario", "Paciente","Clinica","Especialidade","Tipo");
         System.out.println();
+
+        // Imprimir informações de todas as consultas
         for (Especialidade especialidade : especialidades){
             for (Clinica clinica : especialidade.getClinicas()){
                 for (Dia dia : clinica.getAgenda()){
@@ -50,6 +52,8 @@ public class Usuario {
         System.out.println("---------------------------------------------------------------------------------------");
         System.out.printf("   %-10s%-10s%-15s%-17s%-20s%-20s%n", "Dia", "Horario", "Paciente","Clinica","Especialidade","Tipo");
         System.out.println();
+
+        // Imprimir informações de todas as consultas
         for (Especialidade especialidade : especialidades){
             for (Clinica clinica : especialidade.getClinicas()){
                 for (Dia dia : clinica.getAgenda()){
@@ -67,13 +71,13 @@ public class Usuario {
         System.out.println("---------------------------------------------------------------------------------------");
         System.out.println();
         System.out.print("Consulta: ");
-        int consultaNum = sc.nextInt() - 1;
+        int consultaNum = sc.nextInt() - 1; // Pega input de qual consulta deve ser exluida
 
         contador = 0;
 
         for (var entry : consultaMap.entrySet()) {
             if (contador == consultaNum){
-                entry.getValue().remove(entry.getKey());
+                entry.getValue().remove(entry.getKey());// Remove a consulta, da arrayList de consultas
             }
             contador++;
         }

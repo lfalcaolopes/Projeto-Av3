@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.Scanner;
-
 
 public class Dia {
     private ArrayList<Consulta> consultasMarcadas = new ArrayList<Consulta>();
@@ -13,7 +11,7 @@ public class Dia {
 
 
     public void marcarConsulta(int hora, Consulta consulta){
-        this.horarios[hora-8] = 1;
+        this.horarios[hora-8] = 1; // Troca o item da array de 0 (Livre) para 1 (Ocupado)
         this.consultasMarcadas.add(consulta);
     }
 

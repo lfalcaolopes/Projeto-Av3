@@ -18,11 +18,13 @@ public class Especialidade {
 
         System.out.println("Qual clínica deseja marcar consulta?");
 
+        // Imprime clinicas disponiveis
         for (int i = 0; i < this.clinicas.size(); i++){
             System.out.print((i + 1) + ". " + this.clinicas.get(i).getNome() + "   ");
         }
         System.out.println();
 
+        // Retorna clinica escolhida
         return this.clinicas.get(sc.nextInt() - 1);
     }
 
