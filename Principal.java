@@ -6,7 +6,7 @@ public class Principal {
     public static void main(String[] args){
         ArrayList<Especialidade> especialidades = setUpEspecialidades(); // Configurar especialidades quais clinicas atendem
         ArrayList<Usuario> usuarios = new ArrayList<>(); // Registro de todos os usuarios
-        setUpConsultas(especialidades, usuarios); // Configura as consultas predefinidas aleatoriamente
+        setUpConsultas(especialidades, usuarios); // Configura 7 consultas predefinidas aleatoriamente
         Scanner sc = new Scanner(System.in);
 
         boolean estaRodando = true;
@@ -32,7 +32,7 @@ public class Principal {
                         boolean estaLogado = true;
 
                         while(estaLogado){ // Loop para se manter logado
-                            System.out.println("1. Marcar Consulta \t 2. Visualizar consultas \t 3. Cancelar consulta \t 0. Logout");
+                            System.out.println("1. Marcar Consulta \t 2. Pesquisar consultas \t 3. Visualizar todas as consultas \t 4. Cancelar consulta \t 0. Logout");
                             int opcoesUsuario = sc.nextInt();
                             System.out.println();
                             System.out.println();
@@ -47,9 +47,12 @@ public class Principal {
                                 selecionarHorario(diaEscolhido, usuarioAtual, clinicaEscolhida, especialidadeEscolhida); // Marca consulta no horario selecionado
                             }
                             else if (opcoesUsuario == 2) // Visualizar consultas
+                                usuarioAtual.pesquisarConsulta(especialidades);
+
+                            else if (opcoesUsuario == 3) // Visualizar consultas
                                 usuarioAtual.consultasMarcadas(especialidades);
 
-                            else if (opcoesUsuario == 3) // Cancelar consulta
+                            else if (opcoesUsuario == 4) // Cancelar consulta
                                 usuarioAtual.desmarcarConsulta(especialidades);
 
                             else if (opcoesUsuario == 0) // Logout
