@@ -21,10 +21,9 @@ public class Principal {
                 System.out.println("1. Primeiro acesso \t 2. Login");
                 int login = sc.nextInt();
 
-                if (login == 1){ // Cadastrar usuário
+                if (login == 1) // Cadastrar usuário
                     usuarios.add(cadastrarUsuario()); // Adicionar usuário no registro
 
-                }
                 else if (login == 2){ // Login
                     Usuario usuarioAtual = verificarUsuario(usuarios); // Confere se usuário está cadastrado pelo cpf
 
@@ -32,7 +31,7 @@ public class Principal {
                         boolean estaLogado = true;
 
                         while(estaLogado){ // Loop para se manter logado
-                            System.out.println("1. Marcar Consulta \t 2. Pesquisar consultas \t 3. Visualizar todas as consultas \t 4. Cancelar consulta \t 0. Logout");
+                            System.out.println("1. Marcar Consulta \t 2. Pesquisar consultas \t 3. Visualizar todas as consultas \t 4. Cancelar consulta \t 5. Atualizar cadastro \t 0. Logout");
                             int opcoesUsuario = sc.nextInt();
                             System.out.println();
                             System.out.println();
@@ -46,7 +45,7 @@ public class Principal {
 
                                 selecionarHorario(diaEscolhido, usuarioAtual, clinicaEscolhida, especialidadeEscolhida); // Marca consulta no horario selecionado
                             }
-                            else if (opcoesUsuario == 2) // Visualizar consultas
+                            else if (opcoesUsuario == 2) // Filtrar consultas pelo tipo
                                 usuarioAtual.pesquisarConsulta(especialidades);
 
                             else if (opcoesUsuario == 3) // Visualizar consultas
@@ -55,35 +54,25 @@ public class Principal {
                             else if (opcoesUsuario == 4) // Cancelar consulta
                                 usuarioAtual.desmarcarConsulta(especialidades);
 
+                            else if (opcoesUsuario == 5) // Atualiza cadastro
+                                usuarioAtual.atualizarCadastro();
+
                             else if (opcoesUsuario == 0) // Logout
                                 estaLogado = false;
-
                         }
                     }
                     else{
                         System.out.println();
-                        System.out.println("Usuário não encontrado. Tente novamente");
+                        System.out.println("\t\tUsuário não encontrado. Tente novamente");
                         System.out.println();
                     }
                 }
             }
-            else if (usuarioTipo == 2){ // Mostrar consultas de todas as clinicas
-                Map<String, ArrayList<Consulta>> todasConsultas = consultasClinicas(especialidades); // Dicionario com nome da clinica e suas consultas do dia
+            else if (usuarioTipo == 2) // Mostrar consultas de todas as clinicas
+                imprimirConsultas(consultasClinicas(especialidades)); // Imprime as consultas separadas por clinica
 
-                System.out.println("---------------------------------------------------------------------------------------");
-                System.out.printf("   %-10s%-10s%-15s%-17s%-20s%-20s%n", "Dia", "Horario", "Paciente","Clinica","Especialidade","Tipo");
-                for (ArrayList<Consulta> consultas : todasConsultas.values()) { // Loop para acessar consultas do dia
-                    System.out.println();
-                    for (Consulta consulta : consultas) { // Loop para acessar cada consulta
-                        consulta.informacoes(); // Print informações da consulta
-                    }
-                }
-                System.out.println("---------------------------------------------------------------------------------------");
-                System.out.println();
-            }
-            else if (usuarioTipo == 0){ // Sair do programa
+            else if (usuarioTipo == 0) // Sair do programa
                 estaRodando = false;
-            }
         }
         System.out.println();
         System.out.println("Volte sempre");
@@ -98,10 +87,10 @@ public class Principal {
         String nome = sc.nextLine();
         System.out.print("CPF: ");
         String cpf = sc.nextLine();
-        System.out.print("Data de nascimento: ");
-        String nasc = sc.nextLine();
         System.out.print("Sexo: ");
         String sexo = sc.nextLine();
+        System.out.print("Endereço: ");
+        String nasc = sc.nextLine();
         System.out.print("Telefone: ");
         String fone = sc.nextLine();
 
@@ -121,7 +110,7 @@ public class Principal {
         for (Usuario usuario : usuarios){
             if (cpf.equals(usuario.getCpf())){ // Confere se o Cpf informado no login é igual a algum cpf cadastrado
                 System.out.println();
-                System.out.println("\t\tBem vindo " + usuario.getNome());
+                System.out.println("\t\tBem vindo, " + usuario.getNome());
                 System.out.println();
                 return usuario; // Retorna o usuário que possui o mesmo cpf que o informado
             }
@@ -190,7 +179,7 @@ public class Principal {
         System.out.println();
     }
     public static Map<String ,ArrayList<Consulta>> consultasClinicas(ArrayList<Especialidade> especialidades){
-        Map<String ,ArrayList<Consulta>> todasConsultas = new HashMap<>();
+        Map<String ,ArrayList<Consulta>> todasConsultas = new LinkedHashMap<>();
 
         boolean temConsulta = false;
 
@@ -218,6 +207,18 @@ public class Principal {
         }
 
         return todasConsultas; // Retorna as clinicas e suas consultas
+    }
+    public static void imprimirConsultas(Map<String, ArrayList<Consulta>> todasConsultas){
+        System.out.println("---------------------------------------------------------------------------------------");
+        System.out.printf("   %-10s%-10s%-15s%-17s%-20s%-20s%n", "Dia", "Horario", "Paciente","Clinica","Especialidade","Tipo");
+        for (ArrayList<Consulta> consultas : todasConsultas.values()) { // Loop para acessar consultas do dia
+            System.out.println();
+            for (Consulta consulta : consultas) { // Loop para acessar cada consulta
+                consulta.informacoes(); // Print informações da consulta
+            }
+        }
+        System.out.println("---------------------------------------------------------------------------------------");
+        System.out.println();
     }
     public static ArrayList<Especialidade> setUpEspecialidades(){
         // Cadastrar clinica
